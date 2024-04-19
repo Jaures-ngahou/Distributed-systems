@@ -1,0 +1,12 @@
+192.168.43.187    58886
+fichier7      0
+fichier5      0
+fichier8      0
+fichier101      0
+fichier1      19
+fichier3      6
+fichier6      23
+fichier4.txt      1020
+fichier10      0
+fichier2      18
+.goutputstream-M6VZM2      0

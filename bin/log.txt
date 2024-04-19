@@ -1,0 +1,12 @@
+Adresse IP du client : 172.17.0.2
+Message du client : hello
+
+-----------------------------------
+Adresse IP du client : 172.17.0.3
+Message du client : bjr
+
+-----------------------------------
+Adresse IP du client : 172.17.0.3
+Message du client : bjr jaures 
+
+-----------------------------------

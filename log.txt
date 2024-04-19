@@ -1,0 +1,24 @@
+Adresse IP du client : 192.168.43.187
+Message du client : first message
+
+-----------------------------------
+Adresse IP du client : 192.168.43.187
+Message du client : second message
+
+-----------------------------------
+Adresse IP du client : 192.168.43.187
+Message du client : bonjour
+®)ßøü
+-----------------------------------
+Adresse IP du client : 192.168.43.187
+Message du client : comment tu vas
+
+-----------------------------------
+Adresse IP du client : 192.168.43.187
+Message du client : bonsoir
+ÁMšü
+-----------------------------------
+Adresse IP du client : 192.168.43.187
+Message du client : bsr
+
+-----------------------------------

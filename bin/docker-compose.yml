@@ -1,0 +1,18 @@
+version: "2"
+services:
+    service1:
+        image: client
+        container_name: client1
+        ports:
+            - 3301:8082
+    service2:
+        image: client
+        container_name: client2    
+        ports:
+            - 3302:8082
+       
+    service3:
+        image: client
+        container_name: client3
+        ports:
+            - 3303:8082
