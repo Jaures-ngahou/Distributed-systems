@@ -5,23 +5,62 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-struct KeyValue {
-    char key[50];
-    int value;
-};
 
 // Déclaration du mutex global
 pthread_mutex_t fileMutex;
+// fonction update data
+void update_data(const char* fichier, const char* ip) {
+    void log_message(const char *level, const char *message);
+    FILE* readfile = fopen(fichier, "r");
+    if(readfile==NULL){
+        system("touch data.txt");
+        log_message("INFO","data.txt is created");
+    }
+    FILE* addfile = fopen("temp.txt", "w");
+    char ligne[256];
+    int delete = 0;
+
+    while (fgets(ligne, sizeof(ligne), readfile)) {// parcourir le fichier ligne apres ligne
+        if (delete) {
+            if (strncmp(ligne, "IP: ", 4) == 0) {// IP=ligne[4],positif siligne[4]>IP
+                delete = 0;
+                fputs(ligne, addfile);  
+            }
+        } else {
+            if (strstr(ligne, ip) != NULL) { // verifier si ip est une occcurence de la ligne
+                delete = 1;                     //renvoi null si on ne retrouve rien
+                continue;
+            }
+            fputs(ligne, addfile);  
+        }
+        
+    }
+
+    fclose(readfile);
+    fclose(addfile);
+
+    remove(fichier);
+    rename("temp.txt", fichier);
+
+}
+// Fonction executée par chaque thread
+
+
 
 void* handle_client(void* arg) {
-void log_message(const char *level, const char *message);
+    void update_data(const char* fichier, const char* ip) ;
+    void log_message(const char *level, const char *message);
+    struct KeyValue {
+        char key[50];
+        int value;
+    };
 
     int clientSocket = *((int*)arg);
     free(arg); // Libérer la mémoire allouée pour le socket
 
     struct KeyValue kv[100];
     ssize_t bytesReceived;
-
+    char *fichier= "data.txt";
     // Obtenir l'adresse IP et le port du client
     struct sockaddr_in clientAddr; // stocker les infos du client
     socklen_t clientAddrLen = sizeof(clientAddr); //taille de la structure
@@ -40,23 +79,21 @@ void log_message(const char *level, const char *message);
     if (bytesReceived > 0) {
         // Calculer le nombre de paires de clé-valeur reçues
         size_t numPairs = bytesReceived / sizeof(struct KeyValue);
-
+    update_data(fichier, clientIP); 
        
 
         // Ouvrir le fichier pour écrire les données
         FILE *file = fopen("data.txt", "a");
-        if (file == NULL) {
-            perror("Erreur lors de l'ouverture du fichier");
-        } else {
+        
             // Écrire les informations du client dans le fichier
-            fprintf(file, "%s    %d\n", clientIP, clientPort);
+            fprintf(file, "IP: %s    PORT:%d\n", clientIP, clientPort);
             for (size_t i = 0; i < numPairs; i++) {
                
                 fprintf(file, "%s      %d\n", kv[i].key, kv[i].value);
             }
             fprintf(file,"\n");
             fclose(file);
-        }
+        
 
        
     } else if (bytesReceived == 0) {
@@ -70,6 +107,7 @@ void log_message(const char *level, const char *message);
     close(clientSocket);
     pthread_exit(NULL);
 }
+
 //gestion des logs
 void log_message(const char *level, const char *message) {
 
