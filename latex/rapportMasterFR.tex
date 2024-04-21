@@ -1,0 +1,142 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Exemple de rapport de master
+% Version originale :  A. Tarantola, Octobre 2004
+% Version modifiée :   A. Fournier et G. Moguilny, Mars 2012...Novembre 2022
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\documentclass{ipgpmaster}
+%
+% Pour saisir directement les lettres accentuées :
+% \usepackage[applemac]{inputenc} % pour utilisateurs mac
+% \usepackage[ansinew]{inputenc}  % pour Windows ANSI
+% \usepackage[latin1]{inputenc}   % pour Unix Latin1
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+
+\begin{document}
+\checkyears
+
+\vspace*{5mm}
+
+%\setkeys{Gin}{draft} % images non affichées
+\setkeys{Gin}{draft=false} % images affichées
+
+%\linenumbers % Numerotation des lignes pour relecture
+%Select here the language 
+\selectlanguage{french}   
+%\selectlanguage{english} 
+
+
+\def\author{KENFACK NGAHOU Jaures}
+\def\title{SYSTÈMES DISTRIBUÉS}
+\def\shorttitle{systèmes distribués}
+\def\unit{INF4218}
+\def\supervisor{Dr  ADAMOU HAMZA \& GBETNKOM NJIFON Jeff }
+\def\keywords{Sciences de la Terre,  master, rapport, conseils}
+
+\Entete
+
+
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+Le stage de recherche du master permet aux étudiants d'apprendre le métier 
+de chercheur, en participant au travail de recherche d'un laboratoire. 
+Le travail d'un chercheur ressemble beaucoup à celui d'un journaliste : 
+il faut d'abord avoir l'idée d'un sujet d'enquête, ensuite, il faut que 
+l'enquête fournisse des informations et, enfin, il faut la publier. 
+Une grande quantité d'enquêtes journalistiques, et de recherches 
+scientifiques, sont restées ignorées parce que leur publication a été 
+bâclée.
+
+Rédiger un rapport scientifique prend beaucoup de temps. Après un 
+``premier jet'', il faut souvent tout réécrire. 
+Lorsque la forme du rapport semble acceptable, il faut demander l'avis 
+de ses collègues, y apporter des modifications (souvent dramatiques), 
+et itérer le processus
+jusqu'à ce qu'un document de lecture facile ait été produit. Il~existe 
+un \emph{style littéraire\/} très strict que les jeunes chercheurs ont parfois 
+du mal à accepter. Si l'originalité est indispensable pour le sujet de 
+recherche, elle est simplement distrayante dans la publication,
+où on ne demande que de la perfection dans la pré\-sen\-ta\-tion.
+
+
+\section{Avantages et inconvenients}
+
+
+\subsection{Architectures logicielles}
+\subsubsection{en couche}
+Partie très importante du rapport.
+Il doit permettre de se faire une idée précise des résultats.
+Le style est identique à celui de l'article, simplement en résumé.
+Oubliez que le résumé est publié au début de l'article et rédigez 
+comme s'il devait être la seule chose qui existe : ne faites pas 
+référence à l'article (si vous disiez ``nous montrons que\dots'' 
+vous seriez en train de le faire). 
+Ne parlez pas de ``certaines'' hypothèses ou résultats ; dites lesquels 
+ou lesquelles (ou n'en parlez pas si ce n'est pas important). Il est difficile de véhiculer beaucoup 
+d'information en peu de lignes, mais c'est indispensable.
+\subsubsection{SOA}
+\subsubsection{PubSub}
+
+\subsection{Systèmes}
+\subsubsection{Centralisés}
+\subsubsection{Décentralisés}
+\subsubsection{Hibride}
+
+Sert à situer le contexte du travail. Pourquoi est-ce intéressant ? 
+Qui a travaillé avant sur ce sujet? Quelle démarche avons-nous suivi ?
+Il faut aussi dans l'introduction expliquer l'organisation de l'article 
+(après quelques rappels de la théorie de base,  l'instrument 
+utilisé est décrit dans la section 3.2\dots), sans que cela 
+devienne une ``table des matières''.
+
+
+
+
+Évidemment, la partie la plus importante dans le fond, très difficile 
+à écrire. C'est ici que la démarche scientifique doit être 
+scrupuleusement suivie. De la rigueur, de la rigueur, et de la clarté.
+
+
+
+
+\section{Architecture de notre logiciel}
+
+\section{Design goals}
+\subsection{Transparency}
+\subsection{Openness}
+\subsection{Dependability}
+\subsection{Security}
+\subsection{Scalability}
+
+\section{Conclusion}
+
+Écrire un rapport de stage de master n'est pas aisé. 
+Cela prend du temps, et les difficultés sont souvent sous-estimées.
+Mais cette rédaction est une composante essentielle du stage de recherche.
+
+Le \emph{style\/} d'un rapport technique est bien codifié, et laisse peu de place
+à l'originalité, qui, par contre, aura libre cours dans le choix du sujet
+ou des méthodes de recherche. On demande une grande \emph{ clarté\/} et une grande 
+\emph{concision\/} dans la présentation. 
+Pour cela, il faut s'y prendre avec du temps : un document écrit se travaille 
+beaucoup avant de le divulguer.
+
+ 
+\newpage
+
+\addcontentsline{toc}{section}{Références}
+\bibliography{master_AT}
+%\nocite{*} % pour afficher toutes les entrÃ©es (même celles non citées)
+            % de la base de données bibliographique
+            
+
+\cleardoublepage
+  
+\end{document}
+
