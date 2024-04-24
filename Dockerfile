@@ -1,6 +1,4 @@
-FROM ubuntu:22.04
-WORKDIR /home/client/
+FROM socket_service:latest
+WORKDIR /home/jaures/client/
 COPY . .
-RUN apt-get update && \
- apt-get install -y iputils-ping net-tools nano 
 EXPOSE 8082

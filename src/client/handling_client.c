@@ -1,21 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/inotify.h>
-#include <dirent.h>
-#include <sys/stat.h>
-
-#define EVENT_SIZE (sizeof(struct inotify_event))
-#define BUF_LEN (1024 * (EVENT_SIZE + 16)) // taille max
-
+#include "handling_client.h"
 struct KeyValue {
     char key[50]; // Utilisez une taille fixe pour la clé
     int value;
 };
 
-void handle_event() {
+
+ // cette fonction cree la socket , charge le contenu du fichier data 
+void handle_event(char *ip_serveur) {   //dans la structure et l'envoi au serveur
      struct KeyValue kv[100];
     int mapSize ;
 
@@ -32,7 +23,8 @@ void handle_event() {
 
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(8080);
-    serverAddr.sin_addr.s_addr = inet_addr("192.168.43.187"); // Remplacez l'adresse par celle du serveur
+    serverAddr.sin_addr.s_addr = inet_addr(ip_serveur); // Remplacez l'adresse par celle du serveur
+    //serverAddr.sin_addr.s_addr = inet_addr("192.168.43.187");
 
     // Connexion au serveur
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
@@ -67,7 +59,7 @@ void handle_event() {
         }
     }
     for(int i=0; i< mapSize;i++)
-        printf("clés: %s valeur %d \n",kv[i].key,kv[i].value);
+        printf("files: %s size %d \n",kv[i].key,kv[i].value);
     // Fermez le dossier
     closedir(dir);
 
@@ -77,57 +69,6 @@ void handle_event() {
         exit(EXIT_FAILURE);
     }
 
-    printf("Données envoyées au serveur.\n");
+    printf("Data sent to server.\n");
      close(clientSocket);
 }
-
-int main() {
-    int fd, wd;
-    char buffer[BUF_LEN];
-    handle_event();
-   
-    
-    //handle_event(clientSocket);
-    // Initialisation d'Inotify
-    fd = inotify_init();
-    if (fd < 0) {
-        perror("inotify_init");
-        exit(EXIT_FAILURE);
-    }
-
-    // Ajout d'une surveillance sur le dossier ./data/
-    wd = inotify_add_watch(fd, "./data", IN_CREATE | IN_DELETE | IN_MODIFY |IN_MOVE_SELF |IN_MOVED_FROM| IN_MOVED_TO);
-    if (wd < 0) {
-        perror("inotify_add_watch");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Surveillance des modifications...\n");
-
-    // Boucle d'écoute continue
-    while (1) {
-        int length = read(fd, buffer, BUF_LEN); // retourne le nombre d'octets lus
-        if (length < 0) {
-            perror("read");
-            exit(EXIT_FAILURE);
-        }
-
-        struct inotify_event *event;
-        for (char *ptr = buffer; ptr < buffer + length; ptr += EVENT_SIZE + event->len) {//tampon notify
-            event = (struct inotify_event *)ptr;
-
-            if (event->mask & (IN_CREATE | IN_DELETE | IN_MODIFY|IN_MOVE_SELF |IN_MOVED_FROM| IN_MOVED_TO)) {
-                handle_event();
-            }
-        }
-
-    }
-
-    // Nettoyage
-    inotify_rm_watch(fd, wd);
-    close(fd);
-   
-
-    return 0;
-}
-

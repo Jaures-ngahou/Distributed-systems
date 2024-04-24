@@ -1,27 +1,11 @@
-IP: 192.168.43.1    PORT:47766
-1fichier5      0
-fichier8      0
-ctl31      0
-fichier1      19
-ctl3      0
-ctl2      0
-fichier3      6
-fichier01      0
-ctl21      0
-fichier6      23
-fichier4.txt      1020
-fichier011      0
-fichier12345      0
-fichier2      21
-ctl      0
 
-IP: 192.168.43.2    PORT:55448
-2fichier5      0
+
+IP: 172.17.0.3    PORT:43982
+fichier5      0
 fichier8      0
 ctl31      0
 fichier1      19
 ctl3      0
-ctl2      0
 fichier3      6
 fichier01      0
 ctl21      0
@@ -29,8 +13,40 @@ fichier6      23
 fichier4.txt      1020
 fichier011      0
 fichier2      21
+client2      0
 
-IP: 192.168.43.187    PORT:40818
+IP: 172.17.0.4    PORT:37232
+fichier5      0
+fichier8      0
+ctl31      0
+fichier1      19
+ctl3      0
+fichier3      6
+fichier01      0
+ctl21      0
+fichier6      23
+fichier4.txt      1020
+fichier011      0
+fichier2      21
+client3      0
+
+IP: 172.17.0.2    PORT:40406
+fichier5      0
+fichier8      0
+ctl31      0
+fichier1      19
+ctl3      0
+fichier3      6
+fichier01      0
+ctl21      0
+fichier6      23
+fichier4.txt      1020
+fichier011      0
+fichier2      21
+client11      0
+client1      0
+
+IP: 192.168.43.187    PORT:54122
 fichier5      0
 fichier8      0
 ctl31      0
