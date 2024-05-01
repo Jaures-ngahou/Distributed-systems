@@ -44,7 +44,7 @@ ctl21      0
 fichier3      6
 fichier2      21
 
-IP: 172.17.0.2    PORT:41468
+IP: 192.168.43.212    PORT:56626
 fichier4.txt      1020
 fichier01      0
 fichier011      0
@@ -58,7 +58,7 @@ ctl21      0
 fichier3      6
 fichier2      21
 
-IP: 192.168.43.212    PORT:50160
+IP: 172.17.0.2    PORT:41468
 fichier4.txt      1020
 fichier01      0
 fichier011      0

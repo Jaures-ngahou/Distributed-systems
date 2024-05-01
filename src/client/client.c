@@ -16,13 +16,20 @@ int main(int argc, char **argv) {
     printf("To upload your files contained in \" data\" folder, press 2\n");
     printf("To update your files on the server, press 3\n");
     printf("To download files from server, press 4\n ");
+    printf("To quit our file sharing application press 0\n ");
     int i=0;
     while(i<5){
 
         scanf("%d",&option);
         switch(option){
+            case 0:
+              //  printf("sorry, it's available in prenium version\n");
+                printf("Goodbye !!\n");
+                exit(0);
+            break;
             case 1:
-                printf("sorry, it's available in prenium version\n");
+              //  printf("sorry, it's available in prenium version\n");
+                send_file_request(ip_serveur);
             break;
             case 2:
                 handle_event(ip_serveur);

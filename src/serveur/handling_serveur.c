@@ -1,5 +1,6 @@
 #include "handling_serveur.h"
 
+
 // Déclaration du mutex global
 pthread_mutex_t fileMutex;
 // fonction update data.txt
@@ -46,6 +47,7 @@ void* handle_client(void* arg) {
     pthread_mutex_init(&fileMutex, NULL);
     void update_data(const char* fichier, const char* ip) ;
     void log_message(const char *level, const char *message);
+     char requestHeader[sizeof(FILE_REQUEST_HEADER)];
     struct KeyValue {
         char key[50];
         int value;
@@ -69,33 +71,48 @@ void* handle_client(void* arg) {
      // Verrouiller le mutex avant d'accéder au fichier partagé
         pthread_mutex_lock(&fileMutex);
     log_message("INFO",message );
-
-    // Recevoir les données du client
-    bytesReceived = recv(clientSocket, kv, sizeof(kv), 0);
-    if (bytesReceived > 0) {
-        // Calculer le nombre de paires de clé-valeur reçues
-        size_t numPairs = bytesReceived / sizeof(struct KeyValue);
-    update_data(fichier, clientIP); 
-       
-
-        // Ouvrir le fichier pour écrire les données
-        FILE *file = fopen("data.txt", "a");
+    //envoi du fichier data.txt au client
+      bytesReceived = recv(clientSocket, requestHeader, sizeof(requestHeader), 0);
+    if (bytesReceived <= 0) {
+        perror("Erreur lors de la réception de l'en-tête de la requête");
+        pthread_exit(NULL);
+    } // envoi du fichier data.txt au client
+    if (strncmp(requestHeader, FILE_REQUEST_HEADER, sizeof(FILE_REQUEST_HEADER) - 1) == 0) {
+        // Requête de fichier
+        send_file_contents(clientSocket, "data.txt");
         
-            // Écrire les informations du client dans le fichier
-            fprintf(file, "IP: %s    PORT:%d\n", clientIP, clientPort);
-            for (size_t i = 0; i < numPairs; i++) {
-               
-                fprintf(file, "%s      %d\n", kv[i].key, kv[i].value);
-            }
-            fprintf(file,"\n");
-            fclose(file);
+    }
+    if (strncmp(requestHeader, KV_REQUEST_HEADER, sizeof(KV_REQUEST_HEADER) - 1) == 0) {
+        
+        // Recevoir les données du client
+        bytesReceived = recv(clientSocket, kv, sizeof(kv), 0);
+        if (bytesReceived > 0) {
+            // Calculer le nombre de paires de clé-valeur reçues
+            size_t numPairs = bytesReceived / sizeof(struct KeyValue);
+        update_data(fichier, clientIP); 
         
 
-       
-    } else if (bytesReceived == 0) {
-        printf("Client déconnecté.\n");
-    } else {
-        perror("Erreur lors de la réception des données");
+            // Ouvrir le fichier pour écrire les données
+            FILE *file = fopen("data.txt", "a");
+            
+                // Écrire les informations du client dans le fichier
+                fprintf(file, "IP: %s    PORT:%d\n", clientIP, clientPort);
+                for (size_t i = 0; i < numPairs; i++) {
+                
+                    fprintf(file, "%s      %d\n", kv[i].key, kv[i].value);
+                }
+                fprintf(file,"\n");
+                fclose(file);
+            sprintf(message,"data received from user %s on port  %d",clientIP,clientPort);
+     
+              log_message("INFO",message );
+
+        
+        } else if (bytesReceived == 0) {
+            printf("Client déconnecté.\n");
+        } else {
+            perror("Erreur lors de la réception des données");
+        }
     }
  // Déverrouiller le mutex après avoir accédé au fichier
         pthread_mutex_unlock(&fileMutex);
@@ -127,4 +144,32 @@ void log_message(const char *level, const char *message) {
 
     // Fermer le fichier de log
     fclose(logFile);
+}
+
+//envoi du fichier data.txt
+void send_file_contents(int sock, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Erreur lors de l'ouverture du fichier");
+        exit(EXIT_FAILURE);
+    }
+
+    char buffer[BUFFER_SIZE];
+    ssize_t bytesRead;
+
+    // Lecture et envoi du contenu du fichier ligne par ligne
+    while ((bytesRead = fread(buffer, 1, sizeof(buffer), file)) > 0) {
+        if (send(sock, buffer, bytesRead, 0) == -1) {
+            perror("Erreur lors de l'envoi du contenu du fichier");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (bytesRead < 0) {
+        perror("Erreur lors de la lecture du fichier");
+        exit(EXIT_FAILURE);
+    }
+
+    // Fermeture du fichier après l'envoi
+    fclose(file);
 }
