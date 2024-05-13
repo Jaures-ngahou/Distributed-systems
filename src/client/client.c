@@ -1,4 +1,5 @@
 #include "handling_client.h"
+#include "download_client.h"
 
 
 
@@ -9,6 +10,28 @@ int main(int argc, char **argv) {
     }
     int option;
     char *ip_serveur= argv[1];
+
+     // Initialisation du socket
+    int clientSocket;
+    struct sockaddr_in serverAddr;
+
+    // Créez le socket client
+    clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
+    if (clientSocket == -1) {
+        perror("Erreur lors de la création du socket");
+        exit(EXIT_FAILURE);
+    }
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(8080);
+    serverAddr.sin_addr.s_addr = inet_addr(ip_serveur); // Remplacez l'adresse par celle du serveur
+    //serverAddr.sin_addr.s_addr = inet_addr("192.168.43.187");
+
+    // Connexion au serveur
+    if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
+        perror("Erreur lors de la connexion");
+        exit(EXIT_FAILURE);
+    }
+
     printf("++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("++ Welcome to our file sharing application  ++\n");
     printf("++++++++++++++++++++++++++++++++++++++++++++++\n\n");
@@ -17,41 +40,43 @@ int main(int argc, char **argv) {
     printf("To update your files on the server, press 3\n");
     printf("To download files from server, press 4\n ");
     printf("To quit our file sharing application press 0\n ");
-    int i=0;
-    while(i<5){
+  
+    while(1){
 
         scanf("%d",&option);
         switch(option){
             case 0:
               //  printf("sorry, it's available in prenium version\n");
                 printf("Goodbye !!\n");
+                 close(clientSocket);
                 exit(0);
             break;
             case 1:
-              //  printf("sorry, it's available in prenium version\n");
-                send_file_request(ip_serveur);
+                printf("Fichiers disponibles\n");
+                send_file_request(clientSocket);
+
             break;
             case 2:
-                handle_event(ip_serveur);
+                handle_event(clientSocket);
             break;
             case 3:
-                handle_event(ip_serveur);
+                handle_event(clientSocket);
                 printf("data update \n");
             break;
             case 4:
                 printf("sorry, it's available in prenium version\n");
             break;
             default:
-            printf("Please, enter a valid number\n");
+            printf("Please, enter a valid number\t [0;1;2;3;4] \n");
             break;
         }
-        if(i!=4)
-        printf("\n what do you want else:");
-        i++;
+        // if(i!=4)
+         printf("\n what do you want else:");
+        // i++;
     }
 
           
-
+   // close(clientSocket);
     
 
 

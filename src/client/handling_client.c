@@ -7,31 +7,11 @@ struct KeyValue {
 
 
  // cette fonction cree la socket , charge le contenu du fichier data 
-void handle_event(char *ip_serveur) {   //dans la structure et l'envoi au serveur
+void handle_event( int clientSocket) {   //dans la structure et l'envoi au serveur
      struct KeyValue kv[100];
     int mapSize ;
 
-     // Initialisation du socket
-    int clientSocket;
-    struct sockaddr_in serverAddr;
-
-    // Créez le socket client
-    clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
-    if (clientSocket == -1) {
-        perror("Erreur lors de la création du socket");
-        exit(EXIT_FAILURE);
-    }
-
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(8080);
-    serverAddr.sin_addr.s_addr = inet_addr(ip_serveur); // Remplacez l'adresse par celle du serveur
-    //serverAddr.sin_addr.s_addr = inet_addr("192.168.43.187");
-
-    // Connexion au serveur
-    if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Erreur lors de la connexion");
-        exit(EXIT_FAILURE);
-    }
+   
     // Créez un tableau pour stocker les données à envoyer
    
      mapSize = 0;
@@ -76,61 +56,121 @@ void handle_event(char *ip_serveur) {   //dans la structure et l'envoi au serveu
     }
 
     printf("Data sent to server.\n");
-     close(clientSocket);
+    //  close(clientSocket);
 }
-// envoi et reception du fichier data.txt
-void send_file_request(char *ip_serveur){
-      // Initialisation du socket
-    int clientSocket;
-    struct sockaddr_in serverAddr;
-    char buffer[BUFFER_SIZE];
+
+typedef struct {
+    int id;
+    char ip[16];
+    char filename[100];
+    int size;
+} FileData;
+void send_file_request(int clientSocket) {
+    void download_data(char *nom_fichier, char *ip_address);
     ssize_t bytesReceived;
-     FILE *file = fopen("data.txt", "w");
-    if (file == NULL) {
-        perror("Erreur lors de l'ouverture du fichier data.txt");
-        exit(EXIT_FAILURE);
-    }
+    //char buffer[BUFFER_SIZE];
+    char nbre[100];
+  
 
-    // Créez le socket client
-    clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
-    if (clientSocket == -1) {
-        perror("Erreur lors de la création du socket");
-        exit(EXIT_FAILURE);
-    }
-    
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(8080);
-    serverAddr.sin_addr.s_addr = inet_addr(ip_serveur); // Remplacez l'adresse par celle du serveur
-    //serverAddr.sin_addr.s_addr = inet_addr("192.168.43.187");
-
-    // Connexion au serveur
-    if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Erreur lors de la connexion");
-        exit(EXIT_FAILURE);
-    }
-     // Envoyer l'en-tête de la requête de fichier au serveur
+    // Envoyer l'en-tête de la requête de fichier au serveur
     if (send(clientSocket, FILE_REQUEST_HEADER, sizeof(FILE_REQUEST_HEADER), 0) == -1) {
         perror("Erreur lors de l'envoi de l'en-tête de la requête");
         exit(EXIT_FAILURE);
-    }  while ((bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE, 0)) > 0) {
-        // Afficher le contenu du fichier sur le terminal
-        fwrite(buffer, 1, bytesReceived, file);
-       // fwrite(buffer, 1, bytesReceived, stdout);
-        
     }
-    if (fclose(file) != 0) {
-    perror("Erreur lors de la fermeture du fichier");
-    exit(EXIT_FAILURE);
+    bytesReceived=recv(clientSocket,nbre,sizeof(nbre),0);
+    if(bytesReceived== -1){
+        perror("erreur lors de la reception des données");
+    }
+    int nbre_ligne= atoi(nbre);
+    FileData files[nbre_ligne];
+
+    //FileData *files= malloc(nbre_ligne * sizeof(FileData));
+    // Recevoir et écrire les données du serveur dans le fichier
+    printf("nbr de ligne:%d\n",nbre_ligne);
+   
+        bytesReceived = recv(clientSocket, files, nbre_ligne * sizeof(FileData), 0) ;
+     
+
+    // Vérifier si la boucle s'est terminée en raison d'une erreur ou de la fin de la transmission
+    if (bytesReceived == -1) {
+        perror("Erreur lors de la réception des données");
+        exit(EXIT_FAILURE);
+    } else {
+        // Toutes les données ont été reçues ou la connexion avec le serveur est fermée
+        printf("Toutes les données ont été reçues.\n");
+    }
+     printf("%-5s %-15s %-30s %s\n", "ID", "Adresse IP", "Nom du fichier", "Taille");
+    for (int i = 0; i < nbre_ligne; ++i) {
+        if(files[i].size >= 1024){
+            if(files[i].size >= 1024*1024){
+                 printf("%-5d %-15s %-30s %d Mo\n", files[i].id, files[i].ip, files[i].filename, (files[i].size)/(1024*1024));
+             }else{
+              printf("%-5d %-15s %-30s %d Ko\n", files[i].id, files[i].ip, files[i].filename, (files[i].size)/1024);
+             }
+        }else{
+        printf("%-5d %-15s %-30s %d o\n", files[i].id, files[i].ip, files[i].filename, files[i].size);
+        }
+    }
+   
+    //choisir le fichier à télécharger 
+    int no_file;
+
+    printf("+++ veuillez entrer le numero du fichier à télécharger:\t");
+    scanf("%d",&no_file);
+   // no_file --;
+    
+    if(no_file <= nbre_ligne && no_file > 0){
+        no_file --;
+        char *nom_fichier= files[no_file].filename;
+        char *ip_address = files[no_file].ip; 
+        printf("le telechargement du fichier %s à partir de   %s \n",nom_fichier,ip_address); 
+        download_data(nom_fichier,ip_address);
+
+    }else{
+        printf("fichier non trouvé\n");
+    }
+ 
+
 }
-    if (bytesReceived < 0) {
-        perror("Erreur lors de la réception du fichier");
+
+
+void download_data(char *nom_fichier, char *ip_address){
+    CURL *curl;
+    CURLcode res;
+
+    // Initialisez la bibliothèque libcurl
+    curl = curl_easy_init();
+    if(curl) {
+        // Définissez l'URL du fichier à télécharger
+       curl_easy_setopt(curl, CURLOPT_URL, "ftp://192.168.43.212/toto.txt");
+       // curl_easy_setopt(curl, CURLOPT_URL, "ftp://192.168.43.212/home/jaures/pt/Distributed-systems/bin/client/c2/guide1");
+
+        // Activez le mode de transfert binaire
+        curl_easy_setopt(curl, CURLOPT_TRANSFERTEXT, 0L);
+
+        // Définissez le nom d'utilisateur et le mot de passe si nécessaire
+       curl_easy_setopt(curl, CURLOPT_USERPWD, "jaures:jaures77");
+
+        // Spécifiez le fichier de sortie pour sauvegarder le téléchargement
+        FILE *fp = fopen("toto.txt", "wb");
+        if (fp) {
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+
+            // Exécutez la requête FTP
+            res = curl_easy_perform(curl);
+
+            // Vérifiez le résultat de la requête
+            if(res != CURLE_OK)
+                fprintf(stderr, "Erreur lors du téléchargement : %s\n", curl_easy_strerror(res));
+
+            // Fermez le fichier
+            fclose(fp);
+        }
+
+        // Nettoyez et libérez les ressources
+        curl_easy_cleanup(curl);
     }
     
-      close(clientSocket);
-void format_data(const char *filename) ;
-
-format_data("data.txt");
-
 }
 
 //formatage

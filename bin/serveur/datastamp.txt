@@ -1,0 +1,74 @@
+IP: 172.17.0.3    PORT:43982
+chatgpt 	16880
+CPRENDUssh.odt	 9331
+de-en1.tx	t 24046824
+dello 		17136
+developpeur.sh	 310
+erreurls 	73
+essai1.txt	 32
+essaideb.deb 	1076
+exotpssh	 9331
+exotpssh.odt	 9331
+fichier1 	68
+fichiers 	14
+GESTION2final.pptx 	4368323
+getoptt		16936
+group.sh	270
+
+IP: 172.17.0.4    PORT:37232
+cli2.webm	 478956
+guide1 		167
+hello 	17464
+helper.js	 539
+ji.txt	 8
+jo 	1548
+liste0.sh 	626
+listee.sh 	0
+liste.sh 	0
+matrice1.c 	1098
+matrice.c 	5575
+
+IP: 192.168.43.213    PORT:52446
+script0.sh 	40
+script1.sh	 79
+script3.sh 	173
+R.pdf 	1079971
+skeleton	 5369
+skeleton_origin 	5043
+sshd_config.conf	 3289
+tdshell 	345
+tdshell_5a	 91
+tdshell_5b	 16
+
+IP: 127.0.0.1    PORT:36128
+cli23.webm 	478956
+matrice2.c 	2805
+matrice3.c 	4061
+multiplication 	1002
+nanorc1		 10037
+nanos1.txt	 112
+net1.py 	415
+net.py 		1198
+null1.pdf	 107086
+ornela.html 	517
+pass.txt	 0
+photorec.se2 	40960
+processus	 0
+processus.txt	 157370
+prof 	16920
+rechercher 	0
+
+IP: 192.168.43.212    PORT:33264
+fichier4.txt      1020
+fichier01      0
+fichier011      0
+fichier8      0
+fichier6      23
+ctl3      0
+ctl31      0
+fichier1      19
+fichier5      0
+ctl21      0
+fichier3      6
+fichier2      21
+
