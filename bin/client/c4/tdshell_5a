@@ -1,4 +1,0 @@
-#!/bin/bash
-#grep -i "^$1" de-en1.txt
-sed '{s/adj/adv/g;s/adv/adj/g}' de-en.txt  >bonsoir
-

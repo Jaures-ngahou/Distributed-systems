@@ -1,5 +1,5 @@
 CC=gcc
-LDFLAGS= -lm -lcurl
+LDFLAGS= -lm -lcurl -lmicrohttpd
 ARGS=-g -Wall -pthread  #-pedantic -c
 OBJ1= ./obj/client.o ./obj/handling_client.o #./obj/download_client.o
 OBJ2= ./obj/serveur.o ./obj/handling_serveur.o ./obj/download_server.o
@@ -26,7 +26,7 @@ $(EXE2): $(OBJ2)
 	$(CC) $(ARGS) -o ./obj/download_server.o -c ./src/serveur/download_server.c
 
 ./obj/client.o: ./src/client/client.c
-	$(CC) $(ARGS) -o ./obj/client.o -c ./src/client/client.c -I.
+	$(CC) $(ARGS) -o ./obj/client.o -c ./src/client/client.c -I. $(LDFLAGS)
 
 ./obj/serveur.o: ./src/serveur/serveur.c 
 	$(CC) $(ARGS) -o ./obj/serveur.o -c ./src/serveur/serveur.c -I.

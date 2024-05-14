@@ -1,9 +1,0 @@
-#! /bin/bash
-if test $1 -ge 0
-#if [ $1 -ge 0 ]
- then
-    echo $1 est positif.
-else
-    echo $1 est negatif.
-fi
-

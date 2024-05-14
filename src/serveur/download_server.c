@@ -14,7 +14,7 @@ typedef struct {
 } FileData;
 
 void send_file_contents(int sock, const char *filetext) {
-    FILE *file = fopen("datastamp.txt", "r");
+    FILE *file = fopen("data.txt", "r");
     if (file == NULL) {
         perror("Erreur lors de l'ouverture du fichier");
         exit(-1);

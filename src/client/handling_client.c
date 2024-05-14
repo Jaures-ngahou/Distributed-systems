@@ -124,7 +124,11 @@ void send_file_request(int clientSocket) {
         char *nom_fichier= files[no_file].filename;
         char *ip_address = files[no_file].ip; 
         printf("le telechargement du fichier %s à partir de   %s \n",nom_fichier,ip_address); 
-        download_data(nom_fichier,ip_address);
+        char lien[300];
+        sprintf(lien," curl -O http://%s:8001/%s",ip_address,nom_fichier);
+        system(lien);
+      //  download_data(nom_fichier,ip_address);
+    //  system("curl -O http://%s:8080/%s",nom_fichier,ip_address);
 
     }else{
         printf("fichier non trouvé\n");
@@ -134,44 +138,8 @@ void send_file_request(int clientSocket) {
 }
 
 
-void download_data(char *nom_fichier, char *ip_address){
-    CURL *curl;
-    CURLcode res;
 
-    // Initialisez la bibliothèque libcurl
-    curl = curl_easy_init();
-    if(curl) {
-        // Définissez l'URL du fichier à télécharger
-       curl_easy_setopt(curl, CURLOPT_URL, "ftp://192.168.43.212/toto.txt");
-       // curl_easy_setopt(curl, CURLOPT_URL, "ftp://192.168.43.212/home/jaures/pt/Distributed-systems/bin/client/c2/guide1");
 
-        // Activez le mode de transfert binaire
-        curl_easy_setopt(curl, CURLOPT_TRANSFERTEXT, 0L);
-
-        // Définissez le nom d'utilisateur et le mot de passe si nécessaire
-       curl_easy_setopt(curl, CURLOPT_USERPWD, "jaures:jaures77");
-
-        // Spécifiez le fichier de sortie pour sauvegarder le téléchargement
-        FILE *fp = fopen("toto.txt", "wb");
-        if (fp) {
-            curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-
-            // Exécutez la requête FTP
-            res = curl_easy_perform(curl);
-
-            // Vérifiez le résultat de la requête
-            if(res != CURLE_OK)
-                fprintf(stderr, "Erreur lors du téléchargement : %s\n", curl_easy_strerror(res));
-
-            // Fermez le fichier
-            fclose(fp);
-        }
-
-        // Nettoyez et libérez les ressources
-        curl_easy_cleanup(curl);
-    }
-    
-}
 
 //formatage
 

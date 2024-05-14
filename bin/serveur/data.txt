@@ -1,5 +1,5 @@
 IP: 172.17.0.3    PORT:43982
-fichier5      54325787
+fichier5      5432
 fichier8      0
 ctl31      0
 fichier1      19
@@ -56,17 +56,20 @@ ctl21      0
 fichier3      6
 fichier2      21
 
-IP: 192.168.43.212    PORT:51324
-fichier4.txt	1020
-fichier01	0
-fichier011	0
-fichier8	0
-fichier6	23
-ctl3	0
-ctl31	0
-fichier1	19
-fichier5	0
-ctl21	0
-fichier3	6
-fichier2	21
+IP: 192.168.43.212    PORT:57124
+essai1.txt	32
+chatgpt	16880
+getoptt	16936
+CPRENDUssh.odt	9331
+essaideb.deb	1076
+erreurls	73
+fichiers	14
+dello	17136
+fichier1	68
+exotpssh.odt	9331
+GESTION2final.pptx	4368323
+developpeur.sh	310
+group.sh	270
+exotpssh	9331
+de-en1.txt	24046824
 
