@@ -1,7 +1,7 @@
 #include "handling_client.h"
 #include "download_client.h"
 
-
+int pid1;
 
 int main(int argc, char **argv) {
     if(argc < 2){
@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
     int option;
+    char tmp[3];
     char *ip_serveur= argv[1];
 
      // Initialisation du socket
@@ -18,7 +19,7 @@ int main(int argc, char **argv) {
     // Créez le socket client
     clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
     if (clientSocket == -1) {
-        perror("Erreur lors de la création du socket");
+        fprintf(stderr,"Erreur lors de la création du socket");
         exit(EXIT_FAILURE);
     }
     serverAddr.sin_family = AF_INET;
@@ -28,8 +29,18 @@ int main(int argc, char **argv) {
 
     // Connexion au serveur
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Erreur lors de la connexion");
+        fprintf(stderr,"Erreur lors de la connexion");
         exit(EXIT_FAILURE);
+    }
+    
+
+    pid_t pid= fork();
+    char kill1[20];
+    if (pid == 0){
+
+         pid1= getpid();
+        download_data_server(8090);
+        exit(1);
     }
 
     printf("++++++++++++++++++++++++++++++++++++++++++++++\n");
@@ -42,12 +53,16 @@ int main(int argc, char **argv) {
     printf("To quit our file sharing application press 0\n ");
   
     while(1){
-
-        scanf("%d",&option);
+         scanf("%s",tmp);
+         option= atoi(tmp);
+        //scanf("%d",&option);
         switch(option){
             case 0:
               //  printf("sorry, it's available in prenium version\n");
                 printf("Goodbye !!\n");
+                 sprintf(kill1,"kill -9 %d",pid1);
+                printf("pid: %d",pid1);
+                system(kill1); // arreter l'execution du processus fils
                  close(clientSocket);
                 exit(0);
             break;

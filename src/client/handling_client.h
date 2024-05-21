@@ -11,7 +11,7 @@
 #include <sys/inotify.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include <curl/curl.h>
+#include "download_client.h"
 
 
 
@@ -19,7 +19,5 @@
 struct KeyValue;
 void handle_event(int clientSocket) ;
 void send_file_request( int clientSocket);
-void format_data(const char *filename) ;
-void download_data(char *nom_fichier, char *ip_address);
 
 #endif

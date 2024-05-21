@@ -1,72 +1,30 @@
-IP: 172.17.0.3    PORT:43982
-fichier5      54325787
-fichier8      0
-ctl31      0
-fichier1      19
-ctl3      0
-fichier3      6
-fichier01      0
-ctl21      0
-fichier6      23
-fichier4.txt      1020
-fichier011      0
-fichier2      21
-client2      0
+IP: 172.17.0.4    PORT:49704
+tdshell_5a	91
+sshd_config.conf	3289
+skeleton_origin	5043
+SE et R.pdf	1079971
+script3.sh	173
+script0.sh	40
+tdshell	345
+skeleton	5369
+tdshell_5b	16
+script1.sh	79
 
-IP: 172.17.0.4    PORT:37232
-fichier5      0
-fichier8      0
-ctl31      0
-fichier1      19
-ctl3      0
-fichier3      6
-fichier01      0
-ctl21      0
-fichier6      23
-fichier4.txt      1020
-fichier011      0
-fichier2      21
-client3      0
-
-IP: 192.168.43.213    PORT:52446
-213fichier4.txt      1020
-fichier01      0
-fichier011      0
-fichier8      0
-fichier6      23
-ctl3      0
-ctl31      0
-fichier1      19
-fichier5      0
-ctl21      0
-fichier3      6
-fichier2      21
-
-IP: 127.0.0.1    PORT:36128
-fichier4.txt      1020
-fichier01      0
-fichier011      0
-fichier8      0
-fichier6      23
-ctl3      0
-ctl31      0
-fichier1      19
-fichier5      0
-ctl21      0
-fichier3      6
-fichier2      21
-
-IP: 192.168.43.212    PORT:51324
-fichier4.txt	1020
-fichier01	0
-fichier011	0
-fichier8	0
-fichier6	23
-ctl3	0
-ctl31	0
-fichier1	19
-fichier5	0
-ctl21	0
-fichier3	6
-fichier2	21
+IP: 172.17.0.3    PORT:35976
+null1.pdf	107086
+cli23.webm	478956
+ornela.html	517
+processus	0
+rechercher	0
+matrice2.c	2805
+photorec.se2	40960
+pass.txt	0
+net.py	1198
+nanos1.txt	112
+matrice3.c	4061
+nanorc1	10037
+prof	16920
+multiplication	1002
+processus.txt	157370
+net1.py	415
 
