@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 IP: 172.17.0.3    PORT:43982
 fichier5      5432
 fichier8      0
@@ -72,4 +73,35 @@ developpeur.sh	310
 group.sh	270
 exotpssh	9331
 de-en1.txt	24046824
+=======
+IP: 172.17.0.4    PORT:49704
+tdshell_5a	91
+sshd_config.conf	3289
+skeleton_origin	5043
+SE et R.pdf	1079971
+script3.sh	173
+script0.sh	40
+tdshell	345
+skeleton	5369
+tdshell_5b	16
+script1.sh	79
+
+IP: 172.17.0.3    PORT:35976
+null1.pdf	107086
+cli23.webm	478956
+ornela.html	517
+processus	0
+rechercher	0
+matrice2.c	2805
+photorec.se2	40960
+pass.txt	0
+net.py	1198
+nanos1.txt	112
+matrice3.c	4061
+nanorc1	10037
+prof	16920
+multiplication	1002
+processus.txt	157370
+net1.py	415
+>>>>>>> 6195504adae3aef66c055e07073ce9720d0a0b0e
 

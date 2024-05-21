@@ -16,7 +16,7 @@ typedef struct {
 void send_file_contents(int sock, const char *filetext) {
     FILE *file = fopen("data.txt", "r");
     if (file == NULL) {
-        perror("Erreur lors de l'ouverture du fichier");
+        fprintf(stderr,"Erreur lors de l'ouverture du fichier");
         exit(-1);
     }
 
@@ -37,7 +37,7 @@ void send_file_contents(int sock, const char *filetext) {
             // Allocation dynamique de mémoire pour la nouvelle entrée de fichier
             files = realloc(files, (file_count + 1) * sizeof(FileData));
             if (files == NULL) {
-                perror("Erreur lors de l'allocation de mémoire");
+                fprintf(stderr,"Erreur lors de l'allocation de mémoire");
                 exit(-1);
             }
             // Création de la structure pour stocker les informations du fichier
@@ -58,15 +58,15 @@ void send_file_contents(int sock, const char *filetext) {
     //     printf("%-5d %-15s %-30s %d\n", files[i].id, files[i].ip, files[i].filename, files[i].size);
     // }
     if(send(sock,nbre,sizeof(nbre),0) == -1){
-        perror("erreur lors de l'envoi des donnés");
+        fprintf(stderr,"error while sending data");
         exit(-1);
     } 
     if(send(sock,files,file_count * sizeof(FileData),0) == -1){
-        perror("erreur lors de l'envoi des donnés");
+        fprintf(stderr,"erreur lors de l'envoi des donnés");
         exit(-1);
     } 
     fflush(stdout);
-    printf("liste envoyées\n");
+    printf("data send \n");
     free(files);
     fclose(file);
    // return 0;

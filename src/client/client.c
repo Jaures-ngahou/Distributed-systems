@@ -4,24 +4,7 @@
 //"/home/jaures/pt/Distributed-systems/bin/client/data/dello"
 
 
-enum MHD_Result handle_request(void *cls, struct MHD_Connection *connection,
-                               const char *url, const char *method, const char *version,
-                               const char *upload_data, size_t *upload_data_size, void **con_cls)
-{
-    const char *file_path = "/home/jaures/pt/Distributed-systems/bin/client/data/dello";
-    struct MHD_Response *response;
-    enum MHD_Result ret;
-
-    response = MHD_create_response_from_buffer(strlen(file_path), (void *)file_path, MHD_RESPMEM_PERSISTENT);
-    if (!response)
-        return MHD_NO;
-
-    ret = MHD_queue_response(connection, MHD_HTTP_OK, response);
-    MHD_destroy_response(response);
-
-    return ret;
-}
-
+int pid1;
 
 int main(int argc, char **argv) {
     if(argc < 2){
@@ -29,6 +12,7 @@ int main(int argc, char **argv) {
         exit(-1);
     }
     int option;
+    char tmp[3];
     char *ip_serveur= argv[1];
 
      // Initialisation du socket
@@ -38,7 +22,7 @@ int main(int argc, char **argv) {
     // Créez le socket client
     clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
     if (clientSocket == -1) {
-        perror("Erreur lors de la création du socket");
+        fprintf(stderr,"Erreur lors de la création du socket");
         exit(EXIT_FAILURE);
     }
     serverAddr.sin_family = AF_INET;
@@ -48,15 +32,20 @@ int main(int argc, char **argv) {
 
     // Connexion au serveur
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Erreur lors de la connexion");
+        fprintf(stderr,"Erreur lors de la connexion");
         exit(EXIT_FAILURE);
     }
-     struct MHD_Daemon *daemon;
 
-    daemon = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, 8001, NULL, NULL,
-                              &handle_request, NULL, MHD_OPTION_END);
-    if (!daemon)
-       printf("connexion établie\n");
+    
+
+    pid_t pid= fork();
+    char kill1[20];
+    if (pid == 0){
+
+         pid1= getpid();
+        download_data_server(8090);
+        exit(1);
+    }
 
     printf("++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("++ Welcome to our file sharing application  ++\n");
@@ -68,13 +57,17 @@ int main(int argc, char **argv) {
     printf("To quit our file sharing application press 0\n ");
   
     while(1){
-
-        scanf("%d",&option);
+         scanf("%s",tmp);
+         option= atoi(tmp);
+        //scanf("%d",&option);
         switch(option){
             case 0:
               //  printf("sorry, it's available in prenium version\n");
                 printf("Goodbye !!\n");
-                 MHD_stop_daemon(daemon);
+                 sprintf(kill1,"kill -9 %d",pid1);
+                printf("pid: %d",pid1);
+                system(kill1); // arreter l'execution du processus fils
+
                  close(clientSocket);
                 exit(0);
             break;

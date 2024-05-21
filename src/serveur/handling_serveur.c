@@ -67,7 +67,7 @@ while (1) {
 
         bytesReceived = recv(clientSocket, requestHeader, sizeof(requestHeader), 0);
         if (bytesReceived <= 0) {
-            perror("Error receiving request header");
+            fprintf(stderr,"Error receiving request header");
             break;
         }
 
@@ -82,7 +82,7 @@ while (1) {
 
                 FILE *file = fopen("data.txt", "a");
                 if (file == NULL) {
-                    perror("Error opening file for writing");
+                    fprintf(stderr,"Error opening file for writing");
                     break;
                 }
                 
@@ -99,7 +99,7 @@ while (1) {
                 printf("Client disconnected.\n");
                 break;
             } else {
-                perror("Error receiving data");
+                fprintf(stderr,"Error receiving data");
                 break;
             }
         }
@@ -119,7 +119,7 @@ void log_message(const char *level, const char *message) {
 
   FILE *logFile = fopen("server.log", "a");
     if (logFile == NULL) {
-        perror("Erreur lors de l'ouverture du fichier de log");
+        fprintf(stderr,"Erreur lors de l'ouverture du fichier de log");
         return;
     }
 
