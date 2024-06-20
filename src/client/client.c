@@ -1,6 +1,6 @@
 #include "handling_client.h"
 #include "download_client.h"
-#include <microhttpd.h>
+#include "bittorent.h"
 //"/home/jaures/pt/Distributed-systems/bin/client/data/dello"
 
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     // Créez le socket client
     clientSocket = socket(AF_INET, SOCK_STREAM, 0); 
     if (clientSocket == -1) {
-        fprintf(stderr,"Erreur lors de la création du socket");
+        fprintf(stderr,"Erreur lors de la création du socket\n");
         exit(EXIT_FAILURE);
     }
     serverAddr.sin_family = AF_INET;
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 
     // Connexion au serveur
     if (connect(clientSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) == -1) {
-        fprintf(stderr,"Erreur lors de la connexion");
+        fprintf(stderr,"Erreur lors de la connexion\n");
         exit(EXIT_FAILURE);
     }
 
@@ -42,8 +42,11 @@ int main(int argc, char **argv) {
     char kill1[20];
     if (pid == 0){
 
-         pid1= getpid();
-        download_data_server(8090);
+         //pid1= getpid();
+        
+            download_data_server(8090);
+
+        
         exit(1);
     }
 
@@ -84,7 +87,7 @@ int main(int argc, char **argv) {
                 printf("data update \n");
             break;
             case 4:
-                printf("sorry, it's available in prenium version\n");
+               send_file_request(clientSocket);
             break;
             default:
             printf("Please, enter a valid number\t [0;1;2;3;4] \n");

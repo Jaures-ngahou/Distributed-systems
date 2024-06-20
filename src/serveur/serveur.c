@@ -7,6 +7,7 @@
 
 int main() {
     // Initialisation du socket serveur
+     int opt = 1;
     int serverSocket;
     struct sockaddr_in serverAddr;
 
@@ -19,14 +20,18 @@ int main() {
          log_message("DEBUG", "Erreur lors de la création du socket");
         exit(EXIT_FAILURE);
     }
-
+    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) {
+        perror("setsockopt");
+        close(serverSocket);
+        exit(EXIT_FAILURE);
+    }
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(8080);
     serverAddr.sin_addr.s_addr = INADDR_ANY;
 
     // Lier le socket serveur à l'adresse
     if (bind(serverSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
-        fprintf(stderr,"Erreur lors de la liaison");
+        fprintf(stderr,"Erreur lors de la liaison\n");
         log_message("DEBUG", "binding error");
         close(serverSocket);
         exit(EXIT_FAILURE);

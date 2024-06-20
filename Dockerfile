@@ -10,3 +10,5 @@ WORKDIR /home/jaures/client/
 COPY . .
 >>>>>>> 6195504adae3aef66c055e07073ce9720d0a0b0e
 EXPOSE 8082
+
+

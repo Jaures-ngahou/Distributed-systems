@@ -1,107 +1,60 @@
-<<<<<<< HEAD
-IP: 172.17.0.3    PORT:43982
-fichier5      5432
-fichier8      0
-ctl31      0
-fichier1      19
-ctl3      0
-fichier3      6
-fichier01      0
-ctl21      0
-fichier6      23
-fichier4.txt      1020
-fichier011      0
-fichier2      21
-client2      0
-
-IP: 172.17.0.4    PORT:37232
-fichier5      0
-fichier8      0
-ctl31      0
-fichier1      19
-ctl3      0
-fichier3      6
-fichier01      0
-ctl21      0
-fichier6      23
-fichier4.txt      1020
-fichier011      0
-fichier2      21
-client3      0
-
-IP: 192.168.43.213    PORT:52446
-213fichier4.txt      1020
-fichier01      0
-fichier011      0
-fichier8      0
-fichier6      23
-ctl3      0
-ctl31      0
-fichier1      19
-fichier5      0
-ctl21      0
-fichier3      6
-fichier2      21
-
-IP: 127.0.0.1    PORT:36128
-fichier4.txt      1020
-fichier01      0
-fichier011      0
-fichier8      0
-fichier6      23
-ctl3      0
-ctl31      0
-fichier1      19
-fichier5      0
-ctl21      0
-fichier3      6
-fichier2      21
-
-IP: 192.168.43.212    PORT:57124
-essai1.txt	32
-chatgpt	16880
-getoptt	16936
-CPRENDUssh.odt	9331
-essaideb.deb	1076
+IP: 192.168.43.127    PORT:53676
 erreurls	73
-fichiers	14
-dello	17136
+essaideb.deb	1076
 fichier1	68
-exotpssh.odt	9331
-GESTION2final.pptx	4368323
-developpeur.sh	310
+CPRENDUssh.odt	9331
+ccf.c	3122
+chatgpt	16880
 group.sh	270
+exotpssh.odt	9331
+2	16552
+dello	17136
+getoptt	16936
+fichiers	14
+developpeur.sh	310
+GESTION2final.pptx	4368323
 exotpssh	9331
 de-en1.txt	24046824
-=======
-IP: 172.17.0.4    PORT:49704
-tdshell_5a	91
-sshd_config.conf	3289
-skeleton_origin	5043
-SE et R.pdf	1079971
-script3.sh	173
-script0.sh	40
-tdshell	345
-skeleton	5369
-tdshell_5b	16
-script1.sh	79
+Matrix 02 Reloaded.mp4	697307825
+Matrix 03 revolutions.mp4	573941186
+essai1.txt	32
 
-IP: 172.17.0.3    PORT:35976
-null1.pdf	107086
-cli23.webm	478956
-ornela.html	517
-processus	0
-rechercher	0
-matrice2.c	2805
-photorec.se2	40960
-pass.txt	0
-net.py	1198
-nanos1.txt	112
-matrice3.c	4061
-nanorc1	10037
-prof	16920
-multiplication	1002
-processus.txt	157370
-net1.py	415
->>>>>>> 6195504adae3aef66c055e07073ce9720d0a0b0e
+IP: 192.168.43.39    PORT:50240
+group.sh	270
+getoptt	16936
+CPRENDUssh.odt	9331
+dello	17136
+exotpssh.odt	9331
+essaideb.deb	1076
+exotpssh	9331
+developpeur.sh	310
+essai1.txt	32
+Matrix 03 revolutions.mp4	573941186
+chatgpt	16880
+2	16552
+ccf.c	3122
+GESTION2final.pptx	4368323
+fichiers	14
+fichier1	68
+erreurls	73
+de-en1.txt	24046824
+
+IP: 192.168.43.38    PORT:55124
+Matrix03revolutions.mp4	573941760
+The.Last.Ship.S03E10.FRENCH.BDRip.XviD-NEWZT.avi	366679552
+The.Last.Ship.S03E08.FRENCH.BDRip.XviD-NEWZT.avi	367440896
+
+IP: 192.168.43.212    PORT:51584
+The.Last.Ship.S03E07.FRENCH.BDRip.XviD-NEWZT.avi	367343554
+Matrix02Reloaded.mp4	697307825
+Wiflix - regarder film The Suicide.mp4	1423492079
+The.Last.Ship.S03E04.FRENCH.BDRip.XviD-NEWZT.avi	367463844
+The.Last.Ship.S03E05.FRENCH.BDRip.XviD-NEWZT.avi	367088726
+Murder.Mystery.2.2023.French.HDRip.x264.Wawacity.uno.mp4	917714599
+The.Last.Ship.S03E09.FRENCH.BDRip.XviD-NEWZT.avi	367090582
+The.Last.Ship.S03E06.FRENCH.BDRip.XviD-NEWZT.avi	367032878
+Matrix 03 revolutions.mp4	573941186
+Matrix03revolutions.mp4	573941186
+The.Last.Ship.S03E08.FRENCH.BDRip.XviD-NEWZT.avi	367439988
+The.Last.Ship.S03E10.FRENCH.BDRip.XviD-NEWZT.avi	366678628
 

@@ -2,7 +2,7 @@ CC=gcc
 
 LDFLAGS= -lm 
 ARGS=-g -Wall -pthread  #-pedantic -c
-OBJ1= ./obj/client.o ./obj/handling_client.o ./obj/download_client.o
+OBJ1= ./obj/client.o ./obj/handling_client.o ./obj/download_client.o ./obj/bittorent.o
 OBJ2= ./obj/serveur.o ./obj/handling_serveur.o ./obj/download_server.o
 
 EXE1=./bin/client/client
@@ -22,6 +22,9 @@ $(EXE2): $(OBJ2)
 
 ./obj/download_client.o: ./src/client/download_client.c ./src/client/download_client.h
 	$(CC) $(ARGS) -o ./obj/download_client.o -c ./src/client/download_client.c
+
+./obj/bittorent.o: ./src/client/bittorent.c ./src/client/bittorent.h
+	$(CC) $(ARGS) -o ./obj/bittorent.o -c ./src/client/bittorent.c
 
 ./obj/download_server.o: ./src/serveur/download_server.c ./src/serveur/download_server.h
 	$(CC) $(ARGS) -o ./obj/download_server.o -c ./src/serveur/download_server.c

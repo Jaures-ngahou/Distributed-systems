@@ -1,19 +1,14 @@
+
+
 #include "download_server.h"
  
 
-#define MAX_LINE_LENGTH 200
-#define MAX_IP_LENGTH 16
-#define MAX_FILENAME_LENGTH 100
 
-// Structure pour stocker les informations de chaque fichier
-typedef struct {
-    int id;
-    char ip[MAX_IP_LENGTH];
-    char filename[MAX_FILENAME_LENGTH];
-    int size;
-} FileData;
 
 void send_file_contents(int sock, const char *filetext) {
+
+    int serialize_file_data(FileData *files, int file_count, char **serialized_data) ;
+
     FILE *file = fopen("data.txt", "r");
     if (file == NULL) {
         fprintf(stderr,"Erreur lors de l'ouverture du fichier");
@@ -50,24 +45,57 @@ void send_file_contents(int sock, const char *filetext) {
             id1 ++;
         }
     }
-    char nbre[100];
-    sprintf(nbre,"%d",file_count);
+
+    char *serialized_data;
+    int serialized_size = serialize_file_data(files, file_count, &serialized_data);
+   
+
     // Affichage des données formatées
     // printf("%-5s %-15s %-30s %s\n", "ID", "Adresse IP", "Nom du fichier", "Taille");
     // for (int i = 0; i < file_count; ++i) {
     //     printf("%-5d %-15s %-30s %d\n", files[i].id, files[i].ip, files[i].filename, files[i].size);
     // }
-    if(send(sock,nbre,sizeof(nbre),0) == -1){
+    if (send(sock, &serialized_size, sizeof(int), 0) == -1) {
+   
+    
         fprintf(stderr,"error while sending data");
         exit(-1);
     } 
-    if(send(sock,files,file_count * sizeof(FileData),0) == -1){
-        fprintf(stderr,"erreur lors de l'envoi des donnés");
-        exit(-1);
-    } 
+
+    if (send(sock, serialized_data, serialized_size, 0) == -1) {
+    fprintf(stderr, "Erreur lors de l'envoi des données\n");
+    free(serialized_data);
+   // return -1;
+}
+
+free(serialized_data);
+  
     fflush(stdout);
     printf("data send \n");
     free(files);
     fclose(file);
    // return 0;
 }
+
+// serialisation de la structure
+int serialize_file_data(FileData *files, int file_count, char **serialized_data) {
+    int total_size = sizeof(int) + file_count * sizeof(FileData);
+    *serialized_data = (char *)malloc(total_size);
+    if (*serialized_data == NULL) {
+        fprintf(stderr, "Erreur lors de l'allocation de mémoire\n");
+       // return -1;
+    }
+
+    char *ptr = *serialized_data;
+    memcpy(ptr, &file_count, sizeof(int));
+    ptr += sizeof(int);
+
+    for (int i = 0; i < file_count; i++) {
+        memcpy(ptr, &files[i], sizeof(FileData));
+        ptr += sizeof(FileData);
+    }
+
+    return total_size;
+}
+
+

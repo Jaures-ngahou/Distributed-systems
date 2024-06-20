@@ -43,7 +43,7 @@ void update_data(const char* fichier, const char* ip) {
 
 void* handle_client(void* arg) {
     struct KeyValue {
-    char key[50];
+    char key[100];
     int value;
     }   ;
      int clientSocket = *((int*)arg);
@@ -64,10 +64,12 @@ while (1) {
 
     ssize_t bytesReceived;
     char requestHeader[sizeof(FILE_REQUEST_HEADER)];
-
+//char msg[20];
         bytesReceived = recv(clientSocket, requestHeader, sizeof(requestHeader), 0);
         if (bytesReceived <= 0) {
-            fprintf(stderr,"Error receiving request header");
+           // fprintf(stderr,"Error receiving request header");
+           sprintf(message,"Error receiving request header from %s on port %d",clientIP,clientPort);
+           log_message("DEBUG",message);
             break;
         }
 
@@ -76,6 +78,8 @@ while (1) {
         } else if (strncmp(requestHeader, KV_REQUEST_HEADER, sizeof(KV_REQUEST_HEADER) - 1) == 0) {
             struct KeyValue kv[100];
             bytesReceived = recv(clientSocket, kv, sizeof(kv), 0);
+            // bytesReceived = recv(clientSocket, msg, sizeof(msg), 0);
+            // printf("%s",msg);
             if (bytesReceived > 0) {
                 size_t numPairs = bytesReceived / sizeof(struct KeyValue);
                 update_data("data.txt", clientIP);
